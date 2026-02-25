@@ -8,8 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Camera, TrendingUp, Flame, AlertTriangle, ArrowRight,
-  LogOut, User, BarChart3, Pill, Stethoscope, Activity
+  BarChart3, Pill, Stethoscope, Activity
 } from "lucide-react";
+import AuthNavbar from "@/components/AuthNavbar";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { format, differenceInDays, differenceInWeeks, startOfWeek, eachWeekOfInterval, subWeeks } from "date-fns";
 
@@ -22,7 +23,7 @@ const fadeUp = {
 };
 
 const Dashboard = () => {
-  const { user, signOut, loading } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,32 +98,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between py-3 px-6">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">M</span>
-            </div>
-            <span className="font-display text-xl font-bold text-foreground">Manetain</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-            <Link to="/dashboard" className="text-foreground font-medium">Dashboard</Link>
-            <Link to="/analysis" className="hover:text-foreground transition-colors">Analyze</Link>
-            <Link to="/history" className="hover:text-foreground transition-colors">History</Link>
-            <Link to="/treatments" className="hover:text-foreground transition-colors">Treatments</Link>
-            <Link to="/specialists" className="hover:text-foreground transition-colors">Specialists</Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/profile"><User className="h-4 w-4" /></Link>
-            </Button>
-            <Button variant="ghost" size="icon" onClick={() => { signOut(); navigate("/"); }}>
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </nav>
+      <AuthNavbar />
 
       <main className="container mx-auto px-6 py-8 max-w-6xl">
         {/* Welcome */}

@@ -8,9 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowLeft, Star, Filter, Droplets, Pill as PillIcon,
+  Star, Filter, Droplets, Pill as PillIcon,
   Heart, Stethoscope, DollarSign, Clock, ExternalLink,
 } from "lucide-react";
+import AuthNavbar from "@/components/AuthNavbar";
 
 type Treatment = {
   id: string;
@@ -116,19 +117,7 @@ const Treatments = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between py-3 px-6">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">M</span>
-            </div>
-            <span className="font-display text-xl font-bold text-foreground">Manetain</span>
-          </Link>
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-1" /> Dashboard</Link>
-          </Button>
-        </div>
-      </nav>
+      <AuthNavbar />
 
       <main className="container mx-auto px-6 py-8 max-w-5xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
