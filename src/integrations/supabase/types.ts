@@ -14,6 +14,80 @@ export type Database = {
   }
   public: {
     Tables: {
+      analysis_photos: {
+        Row: {
+          angle: string
+          created_at: string
+          id: string
+          photo_url: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          angle: string
+          created_at?: string
+          id?: string
+          photo_url: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          angle?: string
+          created_at?: string
+          id?: string
+          photo_url?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analysis_photos_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "analysis_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      analysis_sessions: {
+        Row: {
+          ai_summary: string | null
+          alert_triggered: boolean | null
+          comparison_notes: string | null
+          created_at: string
+          crown_score: number | null
+          density_score: number | null
+          hairline_score: number | null
+          id: string
+          overall_score: number | null
+          user_id: string
+        }
+        Insert: {
+          ai_summary?: string | null
+          alert_triggered?: boolean | null
+          comparison_notes?: string | null
+          created_at?: string
+          crown_score?: number | null
+          density_score?: number | null
+          hairline_score?: number | null
+          id?: string
+          overall_score?: number | null
+          user_id: string
+        }
+        Update: {
+          ai_summary?: string | null
+          alert_triggered?: boolean | null
+          comparison_notes?: string | null
+          created_at?: string
+          crown_score?: number | null
+          density_score?: number | null
+          hairline_score?: number | null
+          id?: string
+          overall_score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
@@ -46,6 +120,87 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      treatments: {
+        Row: {
+          affiliate_url: string | null
+          category: string
+          commitment_level: string | null
+          cost_level: string | null
+          created_at: string
+          description: string
+          evidence_rating: number | null
+          id: string
+          name: string
+        }
+        Insert: {
+          affiliate_url?: string | null
+          category: string
+          commitment_level?: string | null
+          cost_level?: string | null
+          created_at?: string
+          description: string
+          evidence_rating?: number | null
+          id?: string
+          name: string
+        }
+        Update: {
+          affiliate_url?: string | null
+          category?: string
+          commitment_level?: string | null
+          cost_level?: string | null
+          created_at?: string
+          description?: string
+          evidence_rating?: number | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      user_recommendations: {
+        Row: {
+          created_at: string
+          id: string
+          reason: string | null
+          relevance_score: number | null
+          session_id: string | null
+          treatment_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reason?: string | null
+          relevance_score?: number | null
+          session_id?: string | null
+          treatment_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reason?: string | null
+          relevance_score?: number | null
+          session_id?: string | null
+          treatment_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_recommendations_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "analysis_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_recommendations_treatment_id_fkey"
+            columns: ["treatment_id"]
+            isOneToOne: false
+            referencedRelation: "treatments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
