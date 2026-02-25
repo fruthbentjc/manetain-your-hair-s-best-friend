@@ -1,0 +1,5 @@
+INSERT INTO public.analysis_sessions (user_id, overall_score, density_score, hairline_score, crown_score, ai_summary, alert_triggered, created_at) VALUES
+('52532c92-022e-49c3-a616-714312a49c1f', 72, 75, 70, 68, 'Initial baseline analysis shows generally healthy hair with minor thinning at the crown area. Hairline appears stable with no significant recession noted.', false, now() - interval '6 weeks'),
+('52532c92-022e-49c3-a616-714312a49c1f', 74, 76, 71, 70, 'Slight improvement in crown density compared to previous session. Hairline remains stable. Continue current routine.', false, now() - interval '4 weeks'),
+('52532c92-022e-49c3-a616-714312a49c1f', 71, 73, 69, 67, 'Minor decrease in scores this session. Could be due to seasonal shedding. Monitor closely over next sessions.', true, now() - interval '2 weeks'),
+('52532c92-022e-49c3-a616-714312a49c1f', 76, 78, 73, 72, 'Good recovery from previous dip. Overall hair health trending positively. Crown area showing notable improvement.', false, now());
