@@ -1,0 +1,16 @@
+INSERT INTO public.treatments (name, description, category, cost_level, commitment_level, evidence_rating) VALUES
+('Minoxidil (Rogaine)', 'FDA-approved topical solution that stimulates hair follicles and increases blood flow to the scalp. Available over-the-counter in 2% and 5% concentrations.', 'topical', 'low', 'low', 4),
+('Finasteride (Propecia)', 'Prescription oral medication that blocks DHT, the hormone primarily responsible for male pattern baldness. Shown to slow loss and regrow hair in clinical trials.', 'supplement', 'medium', 'medium', 5),
+('Biotin Supplements', 'B-vitamin supplement that supports keratin production. While deficiency can cause hair loss, supplementation benefits are modest for those with adequate levels.', 'supplement', 'low', 'low', 2),
+('PRP Therapy', 'Platelet-Rich Plasma injections use your own blood''s growth factors to stimulate dormant hair follicles. Requires in-office treatments every 4-6 weeks initially.', 'professional', 'high', 'medium', 3),
+('Scalp Micropigmentation', 'Cosmetic tattooing that creates the appearance of fuller hair density. Non-invasive and long-lasting, best for those who prefer a shaved or buzzed look.', 'professional', 'high', 'low', 3),
+('Ketoconazole Shampoo', 'Antifungal shampoo that may reduce scalp inflammation and DHT levels. Used 2-3 times per week as part of a hair care routine.', 'topical', 'low', 'medium', 3),
+('Saw Palmetto', 'Natural supplement derived from palm berries that may block DHT similarly to finasteride but with milder effects. Popular as a natural alternative.', 'supplement', 'low', 'low', 2),
+('Hair Transplant (FUE)', 'Follicular Unit Extraction surgery moves individual hair follicles from donor areas to thinning regions. Permanent results but requires recovery time.', 'professional', 'high', 'low', 5),
+('Low-Level Laser Therapy', 'FDA-cleared devices (caps, combs) use red light to stimulate cellular activity in hair follicles. Used at home for 15-30 minutes several times per week.', 'lifestyle', 'medium', 'medium', 3),
+('Scalp Massage', 'Regular scalp massage increases blood flow to hair follicles. Studies suggest 4 minutes daily may improve hair thickness over 24 weeks.', 'lifestyle', 'low', 'medium', 2),
+('Iron & Zinc Supplements', 'Correcting iron and zinc deficiencies can reduce hair shedding. Blood tests recommended before supplementing to confirm deficiency.', 'supplement', 'low', 'low', 3),
+('Microneedling', 'Derma rolling creates micro-injuries that trigger collagen production and may enhance topical treatment absorption. Used weekly at home or professionally.', 'topical', 'low', 'medium', 3),
+('Stress Management', 'Chronic stress triggers telogen effluvium (temporary hair loss). Meditation, exercise, and adequate sleep can reduce stress-related shedding.', 'lifestyle', 'low', 'medium', 3),
+('Dutasteride', 'Prescription oral medication similar to finasteride but blocks more types of DHT. Often considered when finasteride alone is insufficient.', 'supplement', 'medium', 'medium', 4),
+('Anti-Inflammatory Diet', 'Eating foods rich in omega-3s, antioxidants, and protein supports hair health. Reducing processed foods and sugar may reduce scalp inflammation.', 'lifestyle', 'low', 'low', 2);
