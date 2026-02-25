@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import {
   Camera, Upload, CheckCircle2, ArrowRight, ArrowLeft,
-  Loader2, AlertTriangle, Shield, RotateCcw, X
+  Loader2, AlertTriangle, Shield, RotateCcw, X, ImageIcon
 } from "lucide-react";
 import AuthNavbar from "@/components/AuthNavbar";
 import { Camera as CapCamera, CameraResultType, CameraSource } from "@capacitor/camera";
@@ -129,6 +129,40 @@ const Analysis = () => {
           toast({
             title: "Camera error",
             description: "Could not access camera. Try uploading a photo instead.",
+            variant: "destructive",
+          });
+        }
+      }
+    },
+    [toast]
+  );
+
+  const handleGalleryPick = useCallback(
+    async (index: number) => {
+      try {
+        const photo = await CapCamera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          resultType: CameraResultType.DataUrl,
+          source: CameraSource.Photos,
+          width: 1200,
+          height: 900,
+        });
+
+        if (photo.dataUrl) {
+          const res = await fetch(photo.dataUrl);
+          const blob = await res.blob();
+          const file = new File([blob], `${ANGLES[index].angle}.jpg`, { type: "image/jpeg" });
+
+          setPhotos((prev) =>
+            prev.map((p, i) => (i === index ? { ...p, file, preview: photo.dataUrl! } : p))
+          );
+        }
+      } catch (error: any) {
+        if (error?.message !== "User cancelled photos app") {
+          toast({
+            title: "Gallery error",
+            description: "Could not access gallery. Try uploading a file instead.",
             variant: "destructive",
           });
         }
@@ -351,20 +385,29 @@ const Analysis = () => {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-border aspect-[4/3] gap-4 p-6">
-                    <Upload className="h-8 w-8 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">Take or upload a photo</p>
-                    <div className="flex gap-3">
+                    <Camera className="h-8 w-8 text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground">Take or choose a photo</p>
+                    <div className="flex flex-wrap justify-center gap-2">
                       <Button
                         variant="default"
+                        size="sm"
                         className="rounded-full"
                         onClick={() => handleCameraCapture(angleIndex)}
                       >
-                        <Camera className="h-4 w-4 mr-2" /> Camera
+                        <Camera className="h-4 w-4 mr-1.5" /> Camera
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="rounded-full"
+                        onClick={() => handleGalleryPick(angleIndex)}
+                      >
+                        <ImageIcon className="h-4 w-4 mr-1.5" /> Gallery
                       </Button>
                       <label>
-                        <Button variant="outline" className="rounded-full" asChild>
+                        <Button variant="outline" size="sm" className="rounded-full" asChild>
                           <span>
-                            <Upload className="h-4 w-4 mr-2" /> Upload
+                            <Upload className="h-4 w-4 mr-1.5" /> File
                           </span>
                         </Button>
                         <input
