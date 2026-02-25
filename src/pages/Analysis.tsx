@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,6 +11,7 @@ import {
   Loader2, AlertTriangle, Shield, RotateCcw, X
 } from "lucide-react";
 import AuthNavbar from "@/components/AuthNavbar";
+import { Camera as CapCamera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 type Angle = "top" | "hairline" | "left_temple" | "right_temple" | "crown";
 
@@ -80,7 +81,6 @@ const Analysis = () => {
   const handleFileChange = useCallback(
     (index: number, file: File | null) => {
       if (!file) return;
-      // Validate: images only, max 10MB
       if (!file.type.startsWith("image/")) {
         toast({ title: "Invalid file", description: "Please upload an image file.", variant: "destructive" });
         return;
@@ -97,6 +97,42 @@ const Analysis = () => {
         );
       };
       reader.readAsDataURL(file);
+    },
+    [toast]
+  );
+
+  const handleCameraCapture = useCallback(
+    async (index: number) => {
+      try {
+        const photo = await CapCamera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          resultType: CameraResultType.DataUrl,
+          source: CameraSource.Camera,
+          width: 1200,
+          height: 900,
+        });
+
+        if (photo.dataUrl) {
+          // Convert data URL to File
+          const res = await fetch(photo.dataUrl);
+          const blob = await res.blob();
+          const file = new File([blob], `${ANGLES[index].angle}.jpg`, { type: "image/jpeg" });
+
+          setPhotos((prev) =>
+            prev.map((p, i) => (i === index ? { ...p, file, preview: photo.dataUrl! } : p))
+          );
+        }
+      } catch (error: any) {
+        // User cancelled or camera not available
+        if (error?.message !== "User cancelled photos app") {
+          toast({
+            title: "Camera error",
+            description: "Could not access camera. Try uploading a photo instead.",
+            variant: "destructive",
+          });
+        }
+      }
     },
     [toast]
   );
@@ -314,17 +350,33 @@ const Analysis = () => {
                     </div>
                   </div>
                 ) : (
-                  <label className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-border aspect-[4/3] cursor-pointer hover:border-primary/50 hover:bg-muted/50 transition-colors">
-                    <Upload className="h-10 w-10 text-muted-foreground mb-3" />
-                    <span className="text-sm font-medium text-foreground">Upload Photo</span>
-                    <span className="text-xs text-muted-foreground mt-1">JPG, PNG up to 10MB</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleFileChange(angleIndex, e.target.files?.[0] || null)}
-                    />
-                  </label>
+                  <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-border aspect-[4/3] gap-4 p-6">
+                    <Upload className="h-8 w-8 text-muted-foreground" />
+                    <p className="text-sm text-muted-foreground">Take or upload a photo</p>
+                    <div className="flex gap-3">
+                      <Button
+                        variant="default"
+                        className="rounded-full"
+                        onClick={() => handleCameraCapture(angleIndex)}
+                      >
+                        <Camera className="h-4 w-4 mr-2" /> Camera
+                      </Button>
+                      <label>
+                        <Button variant="outline" className="rounded-full" asChild>
+                          <span>
+                            <Upload className="h-4 w-4 mr-2" /> Upload
+                          </span>
+                        </Button>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleFileChange(angleIndex, e.target.files?.[0] || null)}
+                        />
+                      </label>
+                    </div>
+                    <span className="text-xs text-muted-foreground">JPG, PNG up to 10MB</span>
+                  </div>
                 )}
               </div>
 
