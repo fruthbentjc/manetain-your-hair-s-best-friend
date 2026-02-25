@@ -10,6 +10,7 @@ import {
   Camera, Upload, CheckCircle2, ArrowRight, ArrowLeft,
   Loader2, AlertTriangle, Shield, RotateCcw, X
 } from "lucide-react";
+import AuthNavbar from "@/components/AuthNavbar";
 
 type Angle = "top" | "hairline" | "left_temple" | "right_temple" | "crown";
 
@@ -219,20 +220,7 @@ const Analysis = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between py-3 px-6">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">M</span>
-            </div>
-            <span className="font-display text-xl font-bold text-foreground">Manetain</span>
-          </Link>
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/dashboard"><ArrowLeft className="h-4 w-4 mr-1" /> Dashboard</Link>
-          </Button>
-        </div>
-      </nav>
+      <AuthNavbar />
 
       <main className="container mx-auto px-6 py-8 max-w-2xl">
         <AnimatePresence mode="wait">
