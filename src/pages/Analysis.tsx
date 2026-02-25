@@ -73,6 +73,7 @@ const Analysis = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [analysisError, setAnalysisError] = useState<{ message: string; code?: string } | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth", { replace: true });
@@ -273,12 +274,14 @@ const Analysis = () => {
       setCurrentStep(8);
     } catch (error: any) {
       console.error("Analysis error:", error);
-      toast({
-        title: "Analysis Failed",
-        description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-      setCurrentStep(6); // back to review
+      const msg = error.message || "Something went wrong.";
+      const code = msg.includes("Rate limit") ? "rate_limit"
+        : msg.includes("credits") ? "credits"
+        : msg.includes("upload") || msg.includes("Upload") ? "upload"
+        : msg.includes("Unauthorized") ? "auth"
+        : "unknown";
+      setAnalysisError({ message: msg, code });
+      setCurrentStep(9); // error step
     } finally {
       setIsAnalyzing(false);
     }
@@ -641,6 +644,91 @@ const Analysis = () => {
                 </Button>
                 <Button variant="outline" className="flex-1 rounded-full" asChild>
                   <Link to="/treatments">View Treatments</Link>
+                </Button>
+              </div>
+            </motion.div>
+          )}
+
+          {/* STEP 9: Error */}
+          {currentStep === 9 && analysisError && (
+            <motion.div
+              key="error"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="text-center"
+            >
+              <div className="w-20 h-20 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-6">
+                <AlertTriangle className="h-10 w-10 text-destructive" />
+              </div>
+              <h2 className="font-display text-2xl font-bold text-foreground mb-2">
+                Analysis Failed
+              </h2>
+              <p className="text-muted-foreground text-sm mb-6">
+                {analysisError.message}
+              </p>
+
+              <Card className="mb-6 text-left">
+                <CardHeader>
+                  <CardTitle className="font-display text-base">What you can try</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {analysisError.code === "rate_limit" && (
+                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <RotateCcw className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                      <span>Wait a minute, then retry. The service is temporarily busy.</span>
+                    </div>
+                  )}
+                  {analysisError.code === "credits" && (
+                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                      <span>AI credits are exhausted. Please contact support or try again later.</span>
+                    </div>
+                  )}
+                  {analysisError.code === "auth" && (
+                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <Shield className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                      <span>Your session may have expired. Log out and log back in, then retry.</span>
+                    </div>
+                  )}
+                  {analysisError.code === "upload" && (
+                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <Upload className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                      <span>Photo upload failed. Check your connection and ensure images are under 10MB.</span>
+                    </div>
+                  )}
+                  {analysisError.code === "unknown" && (
+                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                      <span>An unexpected error occurred. Try again — if it persists, try with fewer or smaller photos.</span>
+                    </div>
+                  )}
+                  <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <Camera className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                    <span>Make sure your photos are clear, well-lit, and show the scalp area properly.</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  className="flex-1 rounded-full"
+                  onClick={() => {
+                    setAnalysisError(null);
+                    handleAnalyze();
+                  }}
+                >
+                  <RotateCcw className="h-4 w-4 mr-2" /> Retry Analysis
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex-1 rounded-full"
+                  onClick={() => {
+                    setAnalysisError(null);
+                    setCurrentStep(6);
+                  }}
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" /> Edit Photos
                 </Button>
               </div>
             </motion.div>
