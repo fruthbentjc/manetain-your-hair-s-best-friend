@@ -94,7 +94,7 @@ const Specialists = () => {
     <div className="min-h-screen bg-background">
       <AuthNavbar />
 
-      <main className="container mx-auto px-6 py-8 max-w-5xl">
+      <main className="container mx-auto px-4 md:px-6 py-6 md:py-8 pb-24 md:pb-8 max-w-5xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="font-display text-3xl font-bold text-foreground mb-1">Find a Specialist</h1>
           <p className="text-muted-foreground text-sm mb-8">
