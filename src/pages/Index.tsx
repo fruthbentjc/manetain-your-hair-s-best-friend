@@ -18,23 +18,23 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between py-4 px-6">
+        <div className="container mx-auto flex items-center justify-between py-3 md:py-4 px-4 md:px-6">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">M</span>
             </div>
-            <span className="font-display text-xl font-bold text-foreground">Manetain</span>
+            <span className="font-display text-lg md:text-xl font-bold text-foreground">Manetain</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#how-it-works" className="hover:text-foreground transition-colors">How it Works</a>
             <a href="#features" className="hover:text-foreground transition-colors">Features</a>
             <a href="#testimonials" className="hover:text-foreground transition-colors">Testimonials</a>
           </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" asChild>
+          <div className="flex items-center gap-2 md:gap-3">
+            <Button variant="ghost" size="sm" asChild>
               <Link to="/auth">Log in</Link>
             </Button>
-            <Button asChild className="rounded-full">
+            <Button size="sm" asChild className="rounded-full">
               <Link to="/auth?signup=true">Get Started</Link>
             </Button>
           </div>
@@ -42,7 +42,7 @@ const Index = () => {
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 overflow-hidden">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-6 overflow-hidden">
         <div className="container mx-auto max-w-5xl text-center">
           <motion.div
             initial="hidden"
@@ -60,7 +60,7 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={1}
-            className="font-display text-5xl md:text-7xl font-bold text-foreground leading-tight mb-6"
+            className="font-display text-4xl md:text-7xl font-bold text-foreground leading-tight mb-5 md:mb-6"
           >
             Catch hair loss
             <br />
@@ -72,7 +72,7 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={2}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-10"
           >
             Track, analyze, and prevent hair loss with AI that detects changes months before they're visible. Because the best time to act is before you notice.
           </motion.p>
@@ -100,7 +100,7 @@ const Index = () => {
             animate="visible"
             variants={fadeUp}
             custom={4}
-            className="grid grid-cols-3 gap-6 mt-16 max-w-xl mx-auto"
+            className="grid grid-cols-3 gap-4 md:gap-6 mt-12 md:mt-16 max-w-xl mx-auto"
           >
             {[
               { value: "$8.2B", label: "Market size" },
@@ -117,7 +117,7 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-20 px-6 bg-manetain-cream">
+      <section id="how-it-works" className="py-12 md:py-20 px-4 md:px-6 bg-manetain-cream">
         <div className="container mx-auto max-w-5xl">
           <motion.div
             initial="hidden"
@@ -135,7 +135,7 @@ const Index = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 icon: Camera,
@@ -181,7 +181,7 @@ const Index = () => {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-20 px-6">
+      <section id="features" className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-5xl">
           <motion.div
             initial="hidden"
@@ -196,7 +196,7 @@ const Index = () => {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {[
               {
                 icon: BarChart3,
@@ -243,7 +243,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-20 px-6 bg-manetain-cream">
+      <section id="testimonials" className="py-12 md:py-20 px-4 md:px-6 bg-manetain-cream">
         <div className="container mx-auto max-w-5xl">
           <motion.div
             initial="hidden"
@@ -258,7 +258,7 @@ const Index = () => {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {[
               {
                 name: "James R.",
@@ -310,7 +310,7 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6">
+      <section className="py-12 md:py-20 px-4 md:px-6">
         <div className="container mx-auto max-w-3xl text-center">
           <motion.div
             initial="hidden"
@@ -335,7 +335,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-12 px-6">
+      <footer className="border-t border-border py-8 md:py-12 px-4 md:px-6">
         <div className="container mx-auto max-w-5xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">

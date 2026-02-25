@@ -100,7 +100,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <AuthNavbar />
 
-      <main className="container mx-auto px-6 py-8 max-w-6xl">
+      <main className="container mx-auto px-4 md:px-6 py-6 md:py-8 pb-24 md:pb-8 max-w-6xl">
         {/* Welcome */}
         <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0} className="mb-8">
           <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
@@ -130,12 +130,12 @@ const Dashboard = () => {
         )}
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
           {/* Health Score */}
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}>
             <Card className="h-full">
-              <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="relative w-28 h-28 mb-4">
+              <CardContent className="p-4 md:p-6 flex flex-col items-center text-center">
+                <div className="relative w-20 h-20 md:w-28 md:h-28 mb-3 md:mb-4">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="42" fill="none" strokeWidth="8" className="stroke-muted" />
                     <circle
@@ -162,9 +162,9 @@ const Dashboard = () => {
           {/* Streak */}
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={2}>
             <Card className="h-full">
-              <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="w-28 h-28 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                  <Flame className="h-12 w-12 text-accent" />
+              <CardContent className="p-4 md:p-6 flex flex-col items-center text-center">
+                <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-accent/10 flex items-center justify-center mb-3 md:mb-4">
+                  <Flame className="h-8 w-8 md:h-12 md:w-12 text-accent" />
                 </div>
                 <p className="font-display text-3xl font-bold text-foreground">{streak}</p>
                 <p className="text-sm font-medium text-foreground mt-1">Week Streak</p>
@@ -176,9 +176,9 @@ const Dashboard = () => {
           </motion.div>
 
           {/* Quick Action */}
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+          <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3} className="col-span-2 md:col-span-1">
             <Card className="h-full bg-primary text-primary-foreground">
-              <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
+              <CardContent className="p-4 md:p-6 flex flex-col items-center justify-center text-center h-full">
                 <Camera className="h-12 w-12 mb-4 opacity-90" />
                 <p className="font-display text-lg font-semibold mb-2">Take This Week's Photo</p>
                 <p className="text-sm opacity-80 mb-4">Stay consistent for the best tracking results.</p>
